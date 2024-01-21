@@ -22,7 +22,7 @@ export const ourFileRouter = {
           key: file.key,
           name: file.name,
           userId: metadata.userId,
-          // We can also directly get file.url but it sometimes times out, thus below is the alternate way
+          // We can also directly get file.url but it sometimes it times out, thus below is the alternate way
           url: `https://uploadthing-prod.s3.us-west-2.amazonaws.com/${file.key}`,
           uploadStatus: "PROCESSING",
         },
