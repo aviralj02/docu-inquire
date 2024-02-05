@@ -1,6 +1,10 @@
 import { db } from "@/db";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { createUploadthing, type FileRouter } from "uploadthing/next";
+import { PDFLoader } from "langchain/document_loaders/fs/pdf";
+import { pinecone } from "@/lib/pinecone";
+import { OpenAIEmbeddings } from "@langchain/openai";
+import { PineconeStore } from "@langchain/pinecone";
 
 const f = createUploadthing();
 
@@ -22,11 +26,50 @@ export const ourFileRouter = {
           key: file.key,
           name: file.name,
           userId: metadata.userId,
-          // We can also directly get file.url but it sometimes it times out, thus below is the alternate way
-          url: `https://uploadthing-prod.s3.us-west-2.amazonaws.com/${file.key}`,
+          url: file.url,
           uploadStatus: "PROCESSING",
         },
       });
+
+      // AI IMPLEMENTATION
+      try {
+        const res = await fetch(file.url);
+        const blog = await res.blob();
+
+        const loader = new PDFLoader(blog);
+
+        const pageLevelDocs = await loader.load();
+        const pagesAmount = pageLevelDocs.length;
+
+        // vectorize and index document
+        const pineconeIndex = pinecone.Index("docu-inquire");
+        const embeddings = new OpenAIEmbeddings({
+          openAIApiKey: process.env.OPENAI_API_KEY,
+        });
+
+        await PineconeStore.fromDocuments(pageLevelDocs, embeddings, {
+          pineconeIndex,
+        });
+
+        await db.file.update({
+          data: {
+            uploadStatus: "SUCCESS",
+          },
+          where: {
+            id: uploadedFile.id,
+          },
+        });
+      } catch (error) {
+        await db.file.update({
+          data: {
+            uploadStatus: "FAILED",
+          },
+          where: {
+            id: uploadedFile.id,
+          },
+        });
+        console.log(error);
+      }
     }),
 } satisfies FileRouter;
 
