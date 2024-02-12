@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import { ExtendedMessage } from "@/types/typings";
-import React from "react";
+import React, { forwardRef } from "react";
 import ReactMarkdown from "react-markdown";
 import { format } from "date-fns";
 import { BrainCircuit, User } from "lucide-react";
@@ -9,12 +9,13 @@ type Props = {
   message: ExtendedMessage;
 };
 
-const Message = ({ message }: Props) => {
+const Message = forwardRef<HTMLDivElement, Props>(({ message }, ref) => {
   return (
     <div
       className={cn("flex items-end", {
         "justify-end": message.isUserMessage,
       })}
+      ref={ref}
     >
       <div
         className={cn(
@@ -69,6 +70,6 @@ const Message = ({ message }: Props) => {
       </div>
     </div>
   );
-};
+});
 
 export default Message;
