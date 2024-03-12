@@ -64,6 +64,12 @@ const UserAccountNav = ({ email, imgUrl, name }: Props) => {
 
         <DropdownMenuSeparator />
 
+        <DropdownMenuItem asChild>
+          <Link href="/keys">API Key</Link>
+        </DropdownMenuItem>
+
+        <DropdownMenuSeparator />
+
         <DropdownMenuItem className="cursor-pointer">
           <LogoutLink>Log Out</LogoutLink>
         </DropdownMenuItem>

@@ -27,7 +27,7 @@ export default function Home() {
             size: "lg",
             className: "mt-5",
           })}
-          href={"/dashboard"}
+          href={"/keys"}
           target="_blank"
         >
           Get Started <ArrowRight className="ml-2 h-5 w-5" />
@@ -105,12 +105,12 @@ export default function Home() {
                 Sign up for an account
               </span>
               <span className="mt-2 text-zinc-700">
-                Either starting out with a free plan or choose our{" "}
+                You will be required to enter you own OpenAI Key. Check how to{" "}
                 <Link
-                  href="/pricing"
+                  href="/"
                   className="text-blue-700 underline underline-offset-2"
                 >
-                  pro plan
+                  here
                 </Link>
                 .
               </span>

@@ -100,7 +100,7 @@ const UploadDropzone = () => {
                   <span className="font-semibold">Click to Upload</span> or drag
                   and drop
                 </p>
-                <p className="text-xs text-zinc-500">PDF (up to 4MB)</p>
+                <p className="text-xs text-zinc-500">PDF (up to 8MB)</p>
               </div>
 
               {acceptedFiles && acceptedFiles[0] && (

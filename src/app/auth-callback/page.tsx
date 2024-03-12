@@ -17,7 +17,7 @@ const AuthCallback = (props: Props) => {
     onSuccess: ({ success }) => {
       if (success) {
         // user is synced to db
-        router.push(origin ? `/${origin}` : "/dashboard");
+        router.push(origin ? `/${origin}` : "/keys");
       }
     },
     onError: (err) => {
