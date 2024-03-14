@@ -156,6 +156,48 @@ export const appRouter = router({
         nextCursor,
       };
     }),
+
+  uploadApiKey: privateProcedure
+    .input(
+      z.object({
+        apiKey: z.string(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { userId } = ctx;
+
+      const uploadKey = await db.key.create({
+        data: {
+          openAiKey: input.apiKey,
+          userId: userId,
+        },
+      });
+    }),
+
+  getApiKey: privateProcedure.query(async ({ ctx }) => {
+    const { userId } = ctx;
+
+    const fetchedApiKey = await db.key.findFirst({
+      where: {
+        userId: userId,
+      },
+    });
+
+    return fetchedApiKey;
+  }),
+
+  deleteApiKey: privateProcedure
+    .input(z.object({ keyId: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      const { userId } = ctx;
+
+      await db.key.delete({
+        where: {
+          id: input.keyId,
+          userId: userId,
+        },
+      });
+    }),
 });
 
 // Export type router type signature,

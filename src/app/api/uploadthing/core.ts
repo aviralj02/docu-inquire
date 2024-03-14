@@ -33,6 +33,14 @@ export const ourFileRouter = {
 
       // AI IMPLEMENTATION
       try {
+        const fetchedApiKey = await db.key.findFirst({
+          where: {
+            userId: metadata.userId,
+          },
+        });
+
+        if (!fetchedApiKey) throw new Error("Not Found");
+
         const res = await fetch(file.url);
         const blog = await res.blob();
 
@@ -44,11 +52,12 @@ export const ourFileRouter = {
         // vectorize and index document
         const pineconeIndex = pinecone.Index("docu-inquire");
         const embeddings = new OpenAIEmbeddings({
-          openAIApiKey: process.env.OPENAI_API_KEY,
+          openAIApiKey: fetchedApiKey?.openAiKey,
         });
 
         await PineconeStore.fromDocuments(pageLevelDocs, embeddings, {
           pineconeIndex,
+          namespace: uploadedFile.id,
         });
 
         await db.file.update({

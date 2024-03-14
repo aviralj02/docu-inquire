@@ -106,12 +106,13 @@ export default function Home() {
               </span>
               <span className="mt-2 text-zinc-700">
                 You will be required to enter you own OpenAI Key. Check how to{" "}
-                <Link
-                  href="/"
+                <a
+                  href="https://gptforwork.com/help/gpt-for-docs/setup/create-openai-api-key"
                   className="text-blue-700 underline underline-offset-2"
+                  target="_blank"
                 >
                   here
-                </Link>
+                </a>
                 .
               </span>
             </div>

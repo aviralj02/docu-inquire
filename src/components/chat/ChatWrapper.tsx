@@ -69,6 +69,14 @@ const ChatWrapper = ({ fileId }: Props) => {
             <XCircle className="h-8 w-8 text-red-500" />
             <h3 className="font-semibold text-xl">Something went wrong!</h3>
             <p className="text-zinc-500 text-sm">
+              Check whether your{" "}
+              <span className="font-bold">OpenAI API key</span> is correct or
+              not. <br />
+              Kindly click{" "}
+              <Link href="/keys" className="text-primary hover:underline">
+                here
+              </Link>{" "}
+              to upload the correct API key and re-upload the PDF file. <br />
               Please make sure the PDF file is less than 8MB or try again.
             </p>
             <Link

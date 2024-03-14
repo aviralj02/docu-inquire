@@ -40,17 +40,26 @@ export const POST = async (req: NextRequest) => {
     },
   });
 
+  const fetchedApiKey = await db.key.findFirst({
+    where: {
+      userId: userId,
+    },
+  });
+
+  if (!fetchedApiKey) return new Response("Not Found", { status: 404 });
+
   // Contact with AI
 
   // Vectorize message
   const embeddings = new OpenAIEmbeddings({
-    openAIApiKey: process.env.OPENAI_API_KEY,
+    openAIApiKey: fetchedApiKey.openAiKey,
   });
 
   const pineconeIndex = pinecone.Index("docu-inquire");
 
   const vectorStore = await PineconeStore.fromExistingIndex(embeddings, {
     pineconeIndex,
+    namespace: file.id,
   });
 
   const results = await vectorStore.similaritySearch(message, 4); // 4 closest results to our message
@@ -70,7 +79,9 @@ export const POST = async (req: NextRequest) => {
     content: msg.text,
   }));
 
-  const response = await openai.chat.completions.create({
+  const openAiInstance = await openai(userId);
+
+  const response = await openAiInstance.chat.completions.create({
     model: "gpt-3.5-turbo",
     temperature: 0,
     stream: true,
