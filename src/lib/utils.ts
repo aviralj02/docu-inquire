@@ -47,7 +47,7 @@ export function constructMetaData({
       creator: "@aviralj02",
     },
     icons,
-    // metadataBase: new URL(""),
+    metadataBase: new URL("https://docu-inquire.vercel.app"),
     themeColor: "#FFF",
     ...(noIndex && {
       robots: {
