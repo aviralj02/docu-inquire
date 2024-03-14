@@ -142,12 +142,12 @@ const APIKeyPage = (props: Props) => {
           <div className="italic flex flex-col gap-2 sm:gap-0">
             <p>
               Your OpenAI API key is securely managed within our system and will
-              only be used for this project's purposes. Rest assured, it will
-              not be misused.
+              only be used for this project&apos;s purposes. Rest assured, it
+              will not be misused.
             </p>
             <p>
-              If you're unsure how to create an OpenAI API key, you can find a
-              guide on how to do so{" "}
+              If you&apos;re unsure how to create an OpenAI API key, you can
+              find a guide on how to do so{" "}
               <a
                 href="https://gptforwork.com/help/gpt-for-docs/setup/create-openai-api-key"
                 className="text-primary hover:underline"
