@@ -46,13 +46,13 @@ $ yarn install
 - Run the following command to generate the Prisma client based on your schema
 
 ```
-npx prisma generate
+$ npx prisma generate
 ```
 
 - If you have made any changes to the schema, you need to run prisma migrations to sync your database with the schema
 
 ```
-npx prisma migrate dev
+$ npx prisma migrate dev
 ```
 
 - Spin up the development server
@@ -63,7 +63,7 @@ $ yarn dev
 
 ### Upload Status Information
 
-PENDING - File not uploaded yet
-PROCESSING - File is uploaded on uploadthing but not indexed on vector db.
-FAILED - Either not able to get indexed on vector db or not able to connect with OpenAI.
-SUCCESS - Uploaded + Connected with OpenAI + Vectorized on Pinecone.
+- PENDING - File not uploaded yet.
+- PROCESSING - File is uploaded on uploadthing but not indexed on vector db.
+- FAILED - Either not able to get indexed on vector db or not able to connect with OpenAI.
+- SUCCESS - Uploaded + Connected with OpenAI + Vectorized on Pinecone.
