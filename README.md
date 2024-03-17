@@ -1,36 +1,69 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# docu-inquire
 
-## Getting Started
+Docu-inquire is platform allowing users to engage in conversational interactions with PDF documents using LLM by Open AI.
 
-First, run the development server:
+![LandingPage](./public/preview.png)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+[Click here](https://docu-inquire.vercel.app/) for live version
+
+## 👨‍💻 Built With
+
+- [![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+- [![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
+- [![tRPC](https://img.shields.io/badge/tRPC-%232596BE.svg?style=for-the-badge&logo=tRPC&logoColor=white)](https://trpc.io/)
+- [![Prisma](https://img.shields.io/badge/Prisma-3982CE?style=for-the-badge&logo=Prisma&logoColor=white)](https://www.prisma.io/)
+- [Kinde Auth](https://kinde.com/)
+- [Langchain](https://www.langchain.com/)
+- [Open AI](https://openai.com/)
+
+### UI Frameworks
+
+- [![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+- [shadcn UI](https://ui.shadcn.com/)
+
+### Databases used
+
+- [Pinecone](https://www.pinecone.io/) (Vector Database)
+- [Aiven](https://aiven.io/) (MySQL Database)
+- [uploadthing](https://uploadthing.com/) (File Storage)
+
+## Local Setup & Installation
+
+- Clone the repo
+
+```
+$ git clone https://github.com/aviralj02/https://github.com/aviralj02/docu-inquire
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Install packages
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+$ yarn install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- Create a `.env.local` file and fill up the details like in [.env.example](./.env.example)
 
-## Learn More
+- Run the following command to generate the Prisma client based on your schema
 
-To learn more about Next.js, take a look at the following resources:
+```
+npx prisma generate
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- If you have made any changes to the schema, you need to run prisma migrations to sync your database with the schema
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```
+npx prisma migrate dev
+```
 
-## Deploy on Vercel
+- Spin up the development server
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+$ yarn dev
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Upload Status Information
+
+PENDING - File not uploaded yet
+PROCESSING - File is uploaded on uploadthing but not indexed on vector db.
+FAILED - Either not able to get indexed on vector db or not able to connect with OpenAI.
+SUCCESS - Uploaded + Connected with OpenAI + Vectorized on Pinecone.
